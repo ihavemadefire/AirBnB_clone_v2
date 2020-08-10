@@ -14,7 +14,7 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         else:
-            # Iterate over all the items in dictionary
+            # destringify the string
             if type(cls) == str:
                 cls = eval(cls)
             for (key, value) in FileStorage.__objects.items():
