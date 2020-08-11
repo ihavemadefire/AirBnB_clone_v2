@@ -22,11 +22,9 @@ class FileStorage:
             return FileStorage.__objects
         else:
             # destringify the string
-            if type(cls) == str:
-                cls = eval(cls)
             for (key, value) in FileStorage.__objects.items():
                 # Check then add pair to new dictionary
-                if type(value) == cls:
+                if cls in key:
                     ret[key] = value
             return ret
 
@@ -36,8 +34,11 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Deletes object from storage dictionary"""
+        if obj is None:
+            return
         delet = str(obj.__class__.__name__) + "." + str(obj.id)
         self.all().pop(delet)
+        self.save()
 
     def save(self):
         """Saves storage dictionary to file"""

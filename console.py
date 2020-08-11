@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        kwargs = {}
+        new_instance = HBNBCommand.classes[args[0]]()
         for i in range(1, len(args)):
             k, v = tuple(args[i].split("="))
             # check for string
@@ -133,12 +133,9 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     v = eval(v)
                 except (SyntaxError, NameError, KeyError):
+                    print("PRINT SOMETHING")
                     continue
-            kwargs[k] = v
-        if len(kwargs) == 0:
-            new_instance = HBNBCommand.classes[args[0]]()
-        else:
-            new_instance = HBNBCommand.classes[args[0]](**kwargs)
+            new_instance.__dict__[k] = v
         storage.save()
         print(new_instance.id)
         storage.save()
