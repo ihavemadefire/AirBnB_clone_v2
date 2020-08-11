@@ -24,7 +24,7 @@ class FileStorage:
             # destringify the string
             for (key, value) in FileStorage.__objects.items():
                 # Check then add pair to new dictionary
-                if cls in key:
+                if cls == type(value):
                     ret[key] = value
             return ret
 
