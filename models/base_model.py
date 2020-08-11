@@ -10,17 +10,19 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
+    id = Column(String(60), nullable=False,
+                primary_key=True)
+    created_at = Column(Datetime, nullable=False,
+                        default=datetime.utcnow())
+    updated_at = Column(Datetime, nullable=False,
+                        default=datetime.utcnow())
+
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
         if not kwargs:
-            from models import storage
-            # id = Column(String(60), nullable=False, primary_key=True)
-            # created_at = Column(Datetime, default=datetime.utcnow())
-            # updated_at = Column(Datetime, default=datetime.utcnow())
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
         else:
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
@@ -38,7 +40,14 @@ class BaseModel:
         """Updates updated_at with current time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
+        storage.new(self)
         storage.save()
+
+    def delete(self):
+        """Delete current instance from storage """
+        delet = str(obj.__class__.__name__) + "." + str(obj.id)
+        self.all().pop(delet)
+        self.save()
 
     def to_dict(self):
         """Convert instance into dict format"""
@@ -48,4 +57,6 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
+        if dictionary['_sa_instance_state']:
+            dictionary.pop('_sa_instance_state')
         return dictionary
