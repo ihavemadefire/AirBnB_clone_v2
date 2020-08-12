@@ -133,7 +133,6 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     v = eval(v)
                 except (SyntaxError, NameError, KeyError):
-                    print("PRINT SOMETHING")
                     continue
             new_instance.__dict__[k] = v
         storage.save()
