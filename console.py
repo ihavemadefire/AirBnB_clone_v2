@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models.__init__ import Storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -213,7 +213,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-        #if args are present
+        # if args are present
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             # check if class is present
