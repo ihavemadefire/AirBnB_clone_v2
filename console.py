@@ -2,8 +2,8 @@
 """ Console Module """
 import cmd
 import sys
+from models import storage
 from models.base_model import BaseModel
-from models.__init__ import Storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -220,10 +220,13 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            # call all with class
-            objs = storage.all(args)
+            # call all with clas
+
+            objs = storage.all()
             for i in objs:
-                print_list.append(objs[i].__str__())
+                j = i.split(".")
+                if j[0] == args:
+                    print_list.append(objs[i].__str__())
         else:
             # call all without
             objs = storage.all()
