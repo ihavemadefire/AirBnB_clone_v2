@@ -1,30 +1,34 @@
-
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker, scoped_session
 from sqlalchemy import create_engine
 from models.state import State
 from models.amenity import Amenity
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.user import User
 import sys
+import os
 
+HBNB_MYSQL_USER = os.getenv("HBNB_MYSQL_USER")
+HBNB_MYSQL_PWD = os.getenv("HBNB_MYSQL_USER")
+HBNB_MYSQL_HOST = os.getenv("HBNB_MYSQL_USER")
+HBNH_MYSQL_DB = os.getenv("HBNB_MYSQL_USER")
 
 class DBStorage:
     """ class DBStorage """
     __engine = None
     __session = None
 
-    def__init__(self):
+    def __init__(self):
         """ public instance methods """
         self.__engine = create_engine(
                                       'mysql+mysqldb://{}:{}@localhost/{}'.
                                       format(HBNB_MYSQL_USER, HBNB_MYSQL_PWD,
-                                             HBNB_MYSQL_HOST, HBNH_MYSQL_DB)
-                                      pool_pre_pring=True)
+                                             HBNB_MYSQL_HOST, HBNH_MYSQL_DB),
+                                      pool_pre_ping=True)
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
@@ -35,9 +39,15 @@ class DBStorage:
     def all(self, cls=None):
         """ query current database """
         if cls is None:
-            result = self.__session.query()
+            result = self.__session.query(User).all()
+            result.append(self.__session.query(State).all())
+            result.append(self.__session.query(City).all())
+            result.append(self.__session.query(Amenity).all())
+            result.append(self.__session.query(Place).all())
+            result.append(self.__session.query(review).all())
+
         else:
-            result = self__session.query(cls)
+            result = self__session.query(cls).all()
         ret = {}
         for i in result:
             key = i.__class__.__name__ + '.' + i.id
@@ -58,11 +68,12 @@ class DBStorage:
         if obj is None:
             return
         else:
-            class = obj.class
-            id = obj.id
-            result = self.__session.query().filter({obj.id})
-            self.__session.delete(result)
+            self.__session.delete(obj)
 
     def reload(self):
         """ reload db storage """
-        pass
+        Base.metadata.create_all(engine)
+        session_factory = sessionmaker(bind=self.__engine,
+                               expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        sesion.__self = Session
