@@ -47,7 +47,7 @@ class DBStorage:
             result.append(self.__session.query(review).all())
 
         else:
-            result = self__session.query(cls).all()
+            result = self.__session.query(eval(cls)).all()
         ret = {}
         for i in result:
             key = i.__class__.__name__ + '.' + i.id

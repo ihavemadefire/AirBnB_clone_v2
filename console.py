@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models import storage
+from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                 except (SyntaxError, NameError, KeyError):
                     continue
             new_instance.__dict__[k] = v
-        storage.save()
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
@@ -213,18 +213,22 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
+        #if args are present
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
+            # check if class is present
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage.FileStorage.__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            # call all with class
+            objs = storage.all(args)
+            for i in objs:
+                print_list.append(objs[i].__str__())
         else:
-            for k, v in storage.FileStorage.__objects.items():
-                print_list.append(str(v))
+            # call all without
+            objs = storage.all()
+            for i in objs:
+                print_list.append(objs[i].__str__())
 
         print(print_list)
 
