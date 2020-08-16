@@ -2,7 +2,7 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from models.review import Review
-from models.__init__ import storage
+# from models.__init__ import storage
 from models.engine.db_storage import DBStorage
 from sqlalchemy import Column, Integer, Float, String, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base

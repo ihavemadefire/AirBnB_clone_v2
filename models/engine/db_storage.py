@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from models.state import State
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
-from models.place import Place
+# from models.place import Place
 from models.city import City
 from models.review import Review
 from models.user import User
@@ -16,6 +16,7 @@ HBNB_MYSQL_USER = os.getenv("HBNB_MYSQL_USER")
 HBNB_MYSQL_PWD = os.getenv("HBNB_MYSQL_PWD")
 HBNB_MYSQL_HOST = os.getenv("HBNB_MYSQL_HOST")
 HBNH_MYSQL_DB = os.getenv("HBNB_MYSQL_DB")
+
 
 class DBStorage:
     """ class DBStorage """
@@ -74,6 +75,6 @@ class DBStorage:
         """ reload db storage """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
-                               expire_on_commit=False)
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
