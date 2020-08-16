@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from models.state import State
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
-# from models.place import Place
+from models.place import Place
 from models.city import City
 from models.review import Review
 from models.user import User
@@ -45,7 +45,7 @@ class DBStorage:
             result.append(self.__session.query(City).all())
             result.append(self.__session.query(Amenity).all())
             result.append(self.__session.query(Place).all())
-            result.append(self.__session.query(review).all())
+            result.append(self.__session.query(Review).all())
 
         else:
             result = self.__session.query(eval(cls)).all()

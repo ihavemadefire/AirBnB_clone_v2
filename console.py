@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models import storage
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -221,19 +221,12 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             # call all with clas
-
-            objs = storage.all()
-            for i in objs:
-                j = i.split(".")
-                if j[0] == args:
-                    print_list.append(objs[i].__str__())
+            objs = storage.all(args)
+            print([objs[i].__str__() for i in objs])
         else:
             # call all without
             objs = storage.all()
-            for i in objs:
-                print_list.append(objs[i].__str__())
-
-        print(print_list)
+            print([objs[i].__str__() for i in objs])
 
     def help_all(self):
         """ Help information for the all command """
