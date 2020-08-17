@@ -4,6 +4,7 @@ from datetime import datetime
 from fabric.api import local
 import os.path
 
+
 def do_pack():
     """Create and return a tar.gz obj of web_static"""
     t = datetime.utcnow()
@@ -24,4 +25,3 @@ def do_pack():
         return None
     # come back and build print statement
     return ret
-
