@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Sets up folder sturcture for remote server
 
-CONTENT="location /hbnb_static {
-    alias /data/web_static/current/;
-    index.html;
-}"
 FILE="/etc/nginx/sites-available/default"
 apt -y update
 apt -y install nginx
