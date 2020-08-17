@@ -14,5 +14,5 @@ touch /data/web_static/releases/test/index.html
 echo "<h1>Holberton Test</h1>" > /data/web_static/releases/test/index.html
 ln -sfn /data/web_static/current /data/web_static/releases/test/
 chown -R ubuntu:ubuntu /data/
-sed -i "38a $CONTENT" $FILE
+sed -i "38a location /hbnb_static {\n    alias /data/web_static/current/;\n}" $FILE
 service nginx restart
