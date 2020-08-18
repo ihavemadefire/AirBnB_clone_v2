@@ -36,8 +36,9 @@ def do_deploy(archive_path):
     if run("rm /tmp/{}".format(file_name)).failed is True:
         return False
     # Move the contents of the folder up one folder
-    if run("mv /data/web_static/releases/{}/web_static/*
-    /data/web_static/releases/{}/".format(no_ext)).failed is True:
+    if run("mv /data/web_static/releases/{}/web_static/* \
+           /data/web_static/releases/{}/"
+           .format(no_ext)).failed is True:
         return False
     # kill empty folder
     if run("rm -fr /data/web_static/releases/{}/web_static".
