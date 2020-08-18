@@ -19,7 +19,7 @@ def do_deploy(archive_path):
     # get file name from file path
     file_name = archive_path.split("/")[-1]
     # remove file extension
-    no_ext = file.split(".")[0]
+    no_ext = file_name.split(".")[0]
 
     # put the file on the server
     if put(archive_path, "/tmp/{}".format(file_name)).failed is True:
