@@ -78,6 +78,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
+    """This deploys the whole deal"""
     arch = do_pack()
     if arch is None:
         return False
