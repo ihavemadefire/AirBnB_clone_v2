@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This docstring is here to fool the checker"""
+# Fab file to launch the whole show
 from datetime import datetime
 from fabric.api import local
 import os.path
