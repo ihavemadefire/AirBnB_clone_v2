@@ -3,6 +3,12 @@
 from datetime import datetime
 from fabric.api import local
 import os.path
+from fabric.api import put
+from fabric.api import run
+import os.path
+from fabric.api import env
+
+env.hosts = ["35.237.36.104", "34.74.62.199"]
 
 
 def do_pack():
@@ -25,13 +31,6 @@ def do_pack():
         return None
     # come back and build print statement
     return ret
-
-from fabric.api import put
-from fabric.api import run
-import os.path
-from fabric.api import env
-
-env.hosts = ["35.237.36.104", "34.74.62.199"]
 
 
 def do_deploy(archive_path):
@@ -77,6 +76,7 @@ def do_deploy(archive_path):
            format(no_ext)).failed is True:
         return False
     return True
+
 
 def deploy():
     arch = do_pack()
