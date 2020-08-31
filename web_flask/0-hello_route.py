@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""DOCSTRING"""
+"""Defines the routhing for a simple flask app"""
 
 from flask import Flask
 app = Flask(__name__)
@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def hello_HBNB():
+    """This routes to the root page"""
     return 'Hello HBNB!'
 
 if __name__ == "__main__":
