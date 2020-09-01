@@ -40,6 +40,7 @@ def HBNB_is_int(n):
     """This accepts an int as input and renders the result if int"""
     return ("{} is a number".format(n))
 
+
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def HBNB_is_int_template(n):
     """This accepts an int as input and renders html if int"""
