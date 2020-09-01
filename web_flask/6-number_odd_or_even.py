@@ -4,8 +4,9 @@
 from flask import Flask
 from flask import render_template
 app = Flask(__name__)
-app.jinja_env.trim_blocks=True
-app.jinja_env.lstrip_blocks=True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
+
 
 @app.route('/', strict_slashes=False)
 def hello_HBNB():
@@ -46,6 +47,7 @@ def HBNB_is_int(n):
 def HBNB_is_int_template(n):
     """This accepts an int as input and renders html if int"""
     return render_template("5-number.html", n=n)
+
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
 def HBNB_odd_even(n):
