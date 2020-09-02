@@ -41,14 +41,16 @@ class DBStorage:
         """ query current database """
         if cls is None:
             result = self.__session.query(User).all()
-            result.append(self.__session.query(State).all())
-            result.append(self.__session.query(City).all())
-            result.append(self.__session.query(Amenity).all())
-            result.append(self.__session.query(Place).all())
-            result.append(self.__session.query(Review).all())
+            result.extend(self.__session.query(State).all())
+            result.extend(self.__session.query(City).all())
+            result.extend(self.__session.query(Amenity).all())
+            result.extend(self.__session.query(Place).all())
+            result.extend(self.__session.query(Review).all())
 
         else:
-            result = self.__session.query(eval(cls)).all()
+            if type(cls) == str:
+                cls = eval(cls)
+            result = self.__session.query(cls)
         ret = {}
         for i in result:
             key = i.__class__.__name__ + '.' + i.id
